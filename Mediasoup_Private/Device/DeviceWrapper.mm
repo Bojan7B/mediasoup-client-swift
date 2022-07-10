@@ -15,6 +15,7 @@
 #import "../Transport/SendTransportListenerAdapter.hpp"
 #import "../Transport/ReceiveTransportWrapper.hpp"
 #import "../Transport/ReceiveTransportListenerAdapter.hpp"
+#import <peerconnection/RTCConfiguration+Private.h>
 
 
 @interface DeviceWrapper() {
@@ -103,6 +104,7 @@
 	dtlsParameters:(NSString *_Nonnull)dtlsParameters
 	sctpParameters:(NSString *_Nullable)sctpParameters
 	appData:(NSString *_Nullable)appData
+    config: (RTCConfiguration *)config
 	error:(out NSError *__autoreleasing _Nullable *_Nullable)error {
 
 	auto listenerAdapter = new SendTransportListenerAdapter();
@@ -128,6 +130,8 @@
 			appDataJSON = nlohmann::json::parse(appDataString);
 		}
 
+        _pcOptions->config = *[config createNativeConfiguration];
+        
 		auto transport = _device->CreateSendTransport(
 			listenerAdapter,
 			idString,
@@ -153,6 +157,7 @@
 	dtlsParameters:(NSString *_Nonnull)dtlsParameters
 	sctpParameters:(NSString *_Nullable)sctpParameters
 	appData:(NSString *_Nullable)appData
+    config: (RTCConfiguration *)config
 	error:(out NSError *__autoreleasing _Nullable *_Nullable)error {
 
 	auto listenerAdapter = new ReceiveTransportListenerAdapter();
@@ -177,6 +182,8 @@
 			auto appDataString = std::string(appData.UTF8String);
 			appDataJSON = nlohmann::json::parse(appDataString);
 		}
+        
+        _pcOptions->config = *[config createNativeConfiguration];
 
 		auto transport = _device->CreateRecvTransport(
 			listenerAdapter,

@@ -148,6 +148,8 @@ Mediasoup-Client-Swift has almost no logic, it's only a convenient wrapper for o
 
 ## Roadmap
 
+* Test
+
 * Upgrade WebRTC and libmediasoupclient to latest versions
 
 * Support integration via SPM

@@ -1,5 +1,5 @@
 framework module Mediasoup {
-	export Mediasoup
+	export *
 }
 
 module Mediasoup.Swift {

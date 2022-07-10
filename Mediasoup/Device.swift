@@ -1,5 +1,6 @@
 import Foundation
 import Mediasoup_Private
+import WebRTC
 
 
 public class Device {
@@ -38,25 +39,30 @@ public class Device {
 	}
 
 	public func createSendTransport(id: String, iceParameters: String, iceCandidates: String,
-		dtlsParameters: String, sctpParameters: String?, appData: String?) throws -> SendTransport {
+                                    dtlsParameters: String, sctpParameters: String?, appData: String?, config: RTCConfiguration) throws -> SendTransport {
 
 		return try convertMediasoupErrors {
 			let transport = try device.createSendTransport(withId: id, iceParameters: iceParameters,
 				iceCandidates: iceCandidates, dtlsParameters: dtlsParameters,
-				sctpParameters: sctpParameters, appData: appData)
+                                                           sctpParameters: sctpParameters, appData: appData,
+                                                           config: config)
 
 			return SendTransport(transport: transport)
 		}
 	}
+    
+    public func testBla() {
+        print("bla")
+    }
 
 	public func createReceiveTransport(id: String, iceParameters: String, iceCandidates: String,
-		dtlsParameters: String, sctpParameters: String? = nil, appData: String? = nil)
+		dtlsParameters: String, sctpParameters: String? = nil, appData: String? = nil, config: RTCConfiguration)
 		throws -> ReceiveTransport {
 
 		return try convertMediasoupErrors {
 			let transport = try device.createReceiveTransport(withId: id, iceParameters: iceParameters,
 				iceCandidates: iceCandidates, dtlsParameters: dtlsParameters,
-				sctpParameters: sctpParameters, appData: appData)
+                                                              sctpParameters: sctpParameters, appData: appData, config: config)
 
 			return ReceiveTransport(transport: transport)
 		}

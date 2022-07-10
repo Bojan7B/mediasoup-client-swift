@@ -7,6 +7,7 @@
 
 @class ReceiveTransportWrapper;
 @class SendTransportWrapper;
+@class RTCConfiguration;
 
 
 @interface DeviceWrapper : NSObject
@@ -34,6 +35,7 @@
 	dtlsParameters:(NSString *_Nonnull)dtlsParameters
 	sctpParameters:(NSString *_Nullable)sctpParameters
 	appData:(NSString *_Nullable)appData
+    config: (RTCConfiguration *)config
 	error:(out NSError *__autoreleasing _Nullable *_Nullable)error;
 
 - (ReceiveTransportWrapper *_Nullable)createReceiveTransportWithId:(NSString *_Nonnull)transportId
@@ -42,6 +44,7 @@
 	dtlsParameters:(NSString *_Nonnull)dtlsParameters
 	sctpParameters:(NSString *_Nullable)sctpParameters
 	appData:(NSString *_Nullable)appData
+    config: (RTCConfiguration *)config
 	error:(out NSError *__autoreleasing _Nullable *_Nullable)error;
 
 @end
